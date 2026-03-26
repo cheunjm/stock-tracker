@@ -13,7 +13,6 @@
     "storybook:ondevice": "STORYBOOK_ENABLED=true expo start"
   },
   "dependencies": {
-    "@cheunjm/ui": "*",
     "@stock-tracker/config": "*",
     "@stock-tracker/types": "*",
     "@stock-tracker/validation": "*",

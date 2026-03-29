@@ -71,3 +71,37 @@ export const FigmaMirror: Story = {
     />
   ),
 };
+
+// Pixel-perfect comparison story — renders at exact Figma component set dimensions (786×148)
+export const PixelMatch: Story = {
+  parameters: { layout: "fullscreen" },
+  render: () => (
+    <div
+      style={{
+        width: 786,
+        height: 148,
+        position: "relative",
+        background: "#FFFFFF",
+        overflow: "hidden",
+      }}
+    >
+      <div style={{ position: "absolute", left: 24, top: 24 }}>
+        <TrackerDashboardHomeSpendSummaryCardView
+          state="populated"
+          totalSpend={12450000}
+          goalAmount={30000000}
+        />
+      </div>
+      <div style={{ position: "absolute", left: 278, top: 24 }}>
+        <TrackerDashboardHomeSpendSummaryCardView
+          state="zero"
+          totalSpend={0}
+          goalAmount={30000000}
+        />
+      </div>
+      <div style={{ position: "absolute", left: 532, top: 24 }}>
+        <TrackerDashboardHomeSpendSummaryCardView state="loading" />
+      </div>
+    </div>
+  ),
+};

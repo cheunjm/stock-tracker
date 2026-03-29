@@ -1,12 +1,17 @@
-import { Slot, Redirect } from 'expo-router';
+import { useEffect } from 'react';
+import { Slot, useRouter } from 'expo-router';
 
 export default function RootLayout() {
+  const router = useRouter();
+
   // TODO: Replace with actual auth check
   const isAuthenticated = false;
 
-  if (!isAuthenticated) {
-    return <Redirect href="/auth/signIn/gmailOauth" />;
-  }
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.replace('/auth/signIn/gmailOauth');
+    }
+  }, [isAuthenticated]);
 
   return <Slot />;
 }

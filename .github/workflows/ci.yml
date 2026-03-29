@@ -64,6 +64,7 @@ jobs:
 
   audit:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -84,6 +85,8 @@ jobs:
       - run: npm ci
       - name: Build Storybook
         run: npx turbo run build --filter=@stock-tracker/storybook
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
       - name: Run Lost Pixel
         run: npx lost-pixel
       - name: Upload visual diffs

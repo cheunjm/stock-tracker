@@ -25,9 +25,7 @@ export const TrackerDashboardHomeSpendSummaryCardView = memo(
           <View
             style={[styles.skeleton, { width: 120, height: 10, top: 62 }]}
           />
-          <View
-            style={[styles.skeleton, { width: 198, height: 5, top: 82 }]}
-          />
+          <View style={[styles.skeleton, { width: 198, height: 5, top: 82 }]} />
         </View>
       );
     }
@@ -35,9 +33,7 @@ export const TrackerDashboardHomeSpendSummaryCardView = memo(
     const percentage =
       goalAmount > 0 ? Math.round((totalSpend / goalAmount) * 1000) / 10 : 0;
     const progressWidth =
-      goalAmount > 0
-        ? Math.min((totalSpend / goalAmount) * 198, 198)
-        : 0;
+      goalAmount > 0 ? Math.min((totalSpend / goalAmount) * 198, 198) : 0;
 
     const formattedSpend = `₩${totalSpend.toLocaleString()}`;
     const formattedGoal = `목표: ₩${goalAmount.toLocaleString()}`;

@@ -73,10 +73,7 @@ function SectionBadge() {
   );
 }
 
-export function FigmaDocLayout({
-  viewName,
-  variants,
-}: FigmaDocLayoutProps) {
+export function FigmaDocLayout({ viewName, variants }: FigmaDocLayoutProps) {
   return (
     <div
       style={{

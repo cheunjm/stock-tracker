@@ -1,6 +1,20 @@
-import type { PrismaClient } from "@stock-tracker/prisma";
+import type { PrismaClient, tracker_purchases } from "@stock-tracker/prisma";
 import { TRPCError } from "@trpc/server";
 import { trackerAccountsDetailModels } from "../models/index.js";
+
+const mapPurchase = (p: tracker_purchases) => ({
+  id: p.id,
+  trackerAccountId: p.tracker_account_id,
+  itemName: p.item_name,
+  itemCategory: p.item_category,
+  amount: p.amount.toString(),
+  currency: p.currency,
+  purchaseDate: p.purchase_date,
+  storeLocation: p.store_location,
+  notes: p.notes,
+  createdAt: p.created_at,
+  updatedAt: p.updated_at,
+});
 
 export const trackerAccountsDetailControllers = (prisma: PrismaClient) => {
   const models = trackerAccountsDetailModels(prisma);
@@ -22,19 +36,7 @@ export const trackerAccountsDetailControllers = (prisma: PrismaClient) => {
         notes: account.notes,
         createdAt: account.created_at,
         updatedAt: account.updated_at,
-        purchases: account.tracker_purchases.map((p) => ({
-          id: p.id,
-          trackerAccountId: p.tracker_account_id,
-          itemName: p.item_name,
-          itemCategory: p.item_category,
-          amount: p.amount.toString(),
-          currency: p.currency,
-          purchaseDate: p.purchase_date,
-          storeLocation: p.store_location,
-          notes: p.notes,
-          createdAt: p.created_at,
-          updatedAt: p.updated_at,
-        })),
+        purchases: account.tracker_purchases.map(mapPurchase),
       };
     },
 

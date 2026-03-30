@@ -1,0 +1,52 @@
+name: Claude DB Migration Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "packages/prisma/migrations/**"
+      - "packages/prisma/schema/**"
+      - "packages/prisma/schema.prisma"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  db-migration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_args: --allowedTools mcp__github,Bash
+          use_sticky_comment: true
+          prompt: |
+            This PR contains database migration files. Review carefully:
+
+            1. **Destructive operations**: DROP TABLE, DROP COLUMN, TRUNCATE — are these safe?
+            2. **Data loss risk**: Any operation that could lose data permanently?
+            3. **Reversibility**: Is there a down migration? Can this be rolled back?
+            4. **Zero-downtime**: Can this migration run while the app is live?
+               - Columns ADDED are safe (zero-downtime)
+               - Columns RENAMED/DROPPED need app code changes first
+               - New indexes on large tables can lock the table
+            5. **Performance**: Will this migration be slow on large tables?
+
+            Format:
+            ## 🗄️ DB Migration Review
+
+            **Risk Level**: Low / Medium / High / Critical
+
+            **Migration Summary**: [what changes]
+
+            **Safety Check**:
+            - Reversible: ✅ Yes / ❌ No / ⚠️ Partial
+            - Zero-downtime safe: ✅ Yes / ❌ No / ⚠️ With precautions
+            - Data loss risk: ✅ None / ⚠️ Some / ❌ High
+
+            **Recommendations**: [if any]

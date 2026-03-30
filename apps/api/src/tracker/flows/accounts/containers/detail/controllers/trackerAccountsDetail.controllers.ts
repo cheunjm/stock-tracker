@@ -3,12 +3,12 @@ import { TRPCError } from "@trpc/server";
 import { trackerAccountsDetailModels } from "../models/index.js";
 
 type AccountWithPurchases = NonNullable<
-  Awaited<ReturnType<ReturnType<typeof trackerAccountsDetailModels>["findById"]>>
+  Awaited<
+    ReturnType<ReturnType<typeof trackerAccountsDetailModels>["findById"]>
+  >
 >;
 
-const mapPurchase = (
-  p: AccountWithPurchases["tracker_purchases"][number],
-) => ({
+const mapPurchase = (p: AccountWithPurchases["tracker_purchases"][number]) => ({
   id: p.id,
   trackerAccountId: p.tracker_account_id,
   itemName: p.item_name,

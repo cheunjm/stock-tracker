@@ -1,15 +1,16 @@
-name: Deploy Storybook
+name: Deploy Web
 
 on:
   push:
     branches: [develop, stage, main]
     paths:
-      - "apps/mobile/src/**/*.stories.tsx"
-      - "apps/storybook/**"
+      - "apps/mobile/**"
       - "packages/**"
+      - "package.json"
+      - "package-lock.json"
 
 concurrency:
-  group: storybook-${{ github.ref }}
+  group: web-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -25,11 +26,19 @@ jobs:
 
       - run: npm ci
 
-      - name: Build Storybook
-        run: npx turbo run build --filter=@stock-tracker/storybook
+      - name: Export web
+        run: npx expo export --platform web
+        working-directory: apps/mobile
+
+      - name: Copy Vercel config
+        run: cp apps/mobile/vercel.json apps/mobile/dist/vercel.json
 
       - name: Install Vercel CLI
         run: npm install -g vercel
+
+      - name: Link project
+        run: vercel link --yes --token=${{ secrets.VERCEL_TOKEN }} --scope ${{ secrets.VERCEL_ORG_ID }} --project stock-tracker-web
+        working-directory: apps/mobile/dist
 
       - name: Resolve Vercel flags
         id: flags
@@ -45,4 +54,4 @@ jobs:
           vercel deploy --yes ${{ steps.flags.outputs.prod }} \
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope ${{ secrets.VERCEL_ORG_ID }}
-        working-directory: apps/storybook/storybook-static
+        working-directory: apps/mobile/dist

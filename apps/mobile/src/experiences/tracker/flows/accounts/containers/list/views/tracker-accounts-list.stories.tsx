@@ -1,10 +1,10 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { TrackerDashboardHomeViews } from "./tracker-dashboard-home.views";
+import { TrackerAccountsListViews } from "./tracker-accounts-list.views";
 
-const meta: Meta<typeof TrackerDashboardHomeViews> = {
-  title: "tracker/dashboard/home",
-  component: TrackerDashboardHomeViews,
+const meta: Meta<typeof TrackerAccountsListViews> = {
+  title: "tracker/accounts/list",
+  component: TrackerAccountsListViews,
   parameters: { layout: "fullscreen" },
   argTypes: {
     screenState: {
@@ -15,7 +15,7 @@ const meta: Meta<typeof TrackerDashboardHomeViews> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof TrackerDashboardHomeViews>;
+type Story = StoryObj<typeof TrackerAccountsListViews>;
 
 export const Default: Story = { args: { screenState: "default" } };
 export const Empty: Story = { args: { screenState: "empty" } };

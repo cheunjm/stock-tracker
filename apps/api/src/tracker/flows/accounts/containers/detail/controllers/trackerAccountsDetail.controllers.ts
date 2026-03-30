@@ -1,8 +1,14 @@
-import type { PrismaClient, tracker_purchases } from "@stock-tracker/prisma";
+import type { PrismaClient } from "@stock-tracker/prisma";
 import { TRPCError } from "@trpc/server";
 import { trackerAccountsDetailModels } from "../models/index.js";
 
-const mapPurchase = (p: tracker_purchases) => ({
+type AccountWithPurchases = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof trackerAccountsDetailModels>["findById"]>>
+>;
+
+const mapPurchase = (
+  p: AccountWithPurchases["tracker_purchases"][number],
+) => ({
   id: p.id,
   trackerAccountId: p.tracker_account_id,
   itemName: p.item_name,

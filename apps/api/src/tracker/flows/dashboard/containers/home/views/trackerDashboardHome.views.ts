@@ -1,5 +1,11 @@
 import { z } from "zod";
 
 export const trackerDashboardHomeViews = {
-  // TODO: define tRPC input/output DTOs
+  summary: {
+    output: z.object({
+      totalAccounts: z.number().int(),
+      totalPurchases: z.number().int(),
+      totalSpent: z.string(),
+    }),
+  },
 };

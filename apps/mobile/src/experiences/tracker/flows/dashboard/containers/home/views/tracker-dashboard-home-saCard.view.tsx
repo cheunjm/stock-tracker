@@ -1,0 +1,116 @@
+import { memo } from "react";
+import { View, Text, StyleSheet } from "react-native";
+
+type SaCardState = "eligible" | "notEligible" | "noPurchases";
+
+type TrackerDashboardHomeSaCardViewProps = {
+  state?: SaCardState;
+  name?: string;
+  initial?: string;
+  boutique?: string;
+  totalSpend?: number;
+};
+
+export const TrackerDashboardHomeSaCardView = memo(
+  ({
+    state = "eligible",
+    name = "김서연 SA",
+    initial = "김",
+    boutique = "청담 부티크",
+    totalSpend = 8200000,
+  }: TrackerDashboardHomeSaCardViewProps) => {
+    const statusText =
+      state === "eligible"
+        ? `${boutique} · 자격 충족`
+        : state === "notEligible"
+          ? `${boutique} · 자격 미충족`
+          : `${boutique} · 구매 없음`;
+
+    const statusColor =
+      state === "eligible"
+        ? "#219654"
+        : state === "notEligible"
+          ? "#FF2D55"
+          : "#999";
+
+    const spendText =
+      state === "noPurchases"
+        ? "구매 내역 없음"
+        : `₩${totalSpend.toLocaleString()} 구매`;
+
+    return (
+      <View style={styles.card}>
+        <View style={styles.avatar}>
+          <Text style={styles.avatarText}>{initial}</Text>
+        </View>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={[styles.status, { color: statusColor }]}>
+          {statusText}
+        </Text>
+        <Text style={styles.spend}>{spendText}</Text>
+      </View>
+    );
+  },
+);
+
+TrackerDashboardHomeSaCardView.displayName = "TrackerDashboardHomeSaCardView";
+
+const styles = StyleSheet.create({
+  card: {
+    width: 236,
+    height: 68,
+    backgroundColor: "#FAFAFA",
+    borderRadius: 12,
+    overflow: "hidden",
+    position: "relative",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 4,
+  },
+  avatar: {
+    position: "absolute",
+    left: 16,
+    top: 12,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: "#FFE8ED",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 8,
+  },
+  avatarText: {
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: 16,
+    color: "#FF2D55",
+    textAlign: "center",
+  },
+  name: {
+    position: "absolute",
+    left: 72,
+    top: 8,
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: 13,
+    color: "#1A1A1A",
+  },
+  status: {
+    position: "absolute",
+    left: 72,
+    top: 28,
+    fontFamily: "Inter",
+    fontWeight: "400",
+    fontSize: 10,
+  },
+  spend: {
+    position: "absolute",
+    left: 72,
+    top: 46,
+    fontFamily: "Inter",
+    fontWeight: "500",
+    fontSize: 10,
+    color: "#666",
+  },
+});

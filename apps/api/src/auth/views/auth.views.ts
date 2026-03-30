@@ -1,5 +1,8 @@
 import { z } from "zod";
+import { userOutputSchema } from "@stock-tracker/validation";
 
 export const authViews = {
-  // TODO: define tRPC input/output DTOs
+  me: {
+    output: userOutputSchema.nullable(),
+  },
 };

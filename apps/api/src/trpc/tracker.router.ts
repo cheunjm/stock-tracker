@@ -1,38 +1,74 @@
 import { router, publicProcedure } from "./trpc.js";
-import { z } from "zod";
+import { trackerDashboardHomeControllers } from "../tracker/flows/dashboard/containers/home/controllers/index.js";
+import { trackerDashboardHomeViews } from "../tracker/flows/dashboard/containers/home/views/index.js";
+import { trackerAccountsListControllers } from "../tracker/flows/accounts/containers/list/controllers/index.js";
+import { trackerAccountsListViews } from "../tracker/flows/accounts/containers/list/views/index.js";
+import { trackerAccountsDetailControllers } from "../tracker/flows/accounts/containers/detail/controllers/index.js";
+import { trackerAccountsDetailViews } from "../tracker/flows/accounts/containers/detail/views/index.js";
+import { trackerHistoryBrowseControllers } from "../tracker/flows/history/containers/browse/controllers/index.js";
+import { trackerHistoryBrowseViews } from "../tracker/flows/history/containers/browse/views/index.js";
 
 const dashboardRouter = router({
   home: router({
-    summary: publicProcedure.query(async () => {
-      // TODO: delegate to tracker-dashboard-home.controllers
-      return { totalPurchases: 0, totalSpent: "0" };
-    }),
+    summary: publicProcedure
+      .output(trackerDashboardHomeViews.summary.output)
+      .query(async ({ ctx }) => {
+        const ctrl = trackerDashboardHomeControllers(ctx.prisma);
+        return ctrl.summary();
+      }),
   }),
 });
 
 const accountsRouter = router({
   list: router({
-    all: publicProcedure.query(async () => {
-      // TODO: delegate to tracker-accounts-list.controllers
-      return [];
-    }),
+    all: publicProcedure
+      .output(trackerAccountsListViews.all.output)
+      .query(async ({ ctx }) => {
+        const ctrl = trackerAccountsListControllers(ctx.prisma);
+        return ctrl.all();
+      }),
+    create: publicProcedure
+      .input(trackerAccountsListViews.create.input)
+      .output(trackerAccountsListViews.create.output)
+      .mutation(async ({ ctx, input }) => {
+        const ctrl = trackerAccountsListControllers(ctx.prisma);
+        return ctrl.create(input);
+      }),
   }),
   detail: router({
     byId: publicProcedure
-      .input(z.object({ id: z.string().uuid() }))
-      .query(async () => {
-        // TODO: delegate to tracker-accounts-detail.controllers
-        return null;
+      .input(trackerAccountsDetailViews.byId.input)
+      .output(trackerAccountsDetailViews.byId.output)
+      .query(async ({ ctx, input }) => {
+        const ctrl = trackerAccountsDetailControllers(ctx.prisma);
+        return ctrl.byId(input);
+      }),
+    update: publicProcedure
+      .input(trackerAccountsDetailViews.update.input)
+      .output(trackerAccountsDetailViews.update.output)
+      .mutation(async ({ ctx, input }) => {
+        const ctrl = trackerAccountsDetailControllers(ctx.prisma);
+        return ctrl.update(input);
+      }),
+    delete: publicProcedure
+      .input(trackerAccountsDetailViews.delete.input)
+      .output(trackerAccountsDetailViews.delete.output)
+      .mutation(async ({ ctx, input }) => {
+        const ctrl = trackerAccountsDetailControllers(ctx.prisma);
+        return ctrl.delete(input);
       }),
   }),
 });
 
 const historyRouter = router({
   browse: router({
-    list: publicProcedure.query(async () => {
-      // TODO: delegate to tracker-history-browse.controllers
-      return [];
-    }),
+    list: publicProcedure
+      .input(trackerHistoryBrowseViews.list.input)
+      .output(trackerHistoryBrowseViews.list.output)
+      .query(async ({ ctx, input }) => {
+        const ctrl = trackerHistoryBrowseControllers(ctx.prisma);
+        return ctrl.list(input);
+      }),
   }),
 });
 

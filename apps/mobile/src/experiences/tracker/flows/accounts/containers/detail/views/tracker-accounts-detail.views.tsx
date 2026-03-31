@@ -1,32 +1,139 @@
-import { memo } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { memo, type ReactNode } from "react";
+import { View, Text, ScrollView, StyleSheet, Pressable } from "react-native";
+import type { TrackerAccountsDetailScreenState } from "../models/tracker-accounts-detail.type";
+import { TrackerAccountsDetailSaHeaderView } from "./tracker-accounts-detail-saHeader.view";
+import { TrackerAccountsDetailTankStatusView } from "./tracker-accounts-detail-tankStatus.view";
+import { TrackerAccountsDetailPurchaseRowView } from "./tracker-accounts-detail-purchaseRow.view";
+import { TrackerAccountsDetailErrorStateView } from "./tracker-accounts-detail-errorState.view";
+import { TrackerAccountsDetailSkeletonCardView } from "./tracker-accounts-detail-skeletonCard.view";
 
-export const TrackerAccountsDetailViews = memo(() => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Account</Text>
-      <Text style={styles.subtitle}>Detail</Text>
-    </View>
-  );
-});
+type TrackerAccountsDetailViewsProps = {
+  screenState?: TrackerAccountsDetailScreenState;
+  onBack?: () => void;
+  onRetry?: () => void;
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#FFFFFF",
+export const TrackerAccountsDetailViews = memo(
+  ({ screenState = "default", onBack }: TrackerAccountsDetailViewsProps) => {
+    const content: Record<TrackerAccountsDetailScreenState, ReactNode> = {
+      default: (
+        <>
+          <TrackerAccountsDetailSaHeaderView
+            name="김서연 SA"
+            initial="김"
+            boutique="청담 부티크"
+            totalSpend={8200000}
+          />
+          <View style={styles.spacer12} />
+          <TrackerAccountsDetailTankStatusView state="eligible" />
+          <View style={styles.spacer20} />
+          <Text style={styles.sectionLabel}>최근 구매 내역</Text>
+          <View style={styles.spacer12} />
+          <TrackerAccountsDetailPurchaseRowView
+            type="regular"
+            productName="트리니티 링"
+            date="2024.03.15"
+            amount={3200000}
+          />
+          <View style={styles.spacer16} />
+          <TrackerAccountsDetailPurchaseRowView
+            type="tank"
+            productName="러브 브레이슬릿"
+            date="2024.01.10"
+            amount={5000000}
+          />
+          <View style={styles.spacer16} />
+          <TrackerAccountsDetailPurchaseRowView
+            type="regular"
+            productName="저스트 앵 끌루 링"
+            date="2023.12.20"
+            amount={4200000}
+          />
+        </>
+      ),
+      loading: (
+        <>
+          <TrackerAccountsDetailSkeletonCardView />
+          <View style={styles.spacer12} />
+          <TrackerAccountsDetailSkeletonCardView />
+          <View style={styles.spacer12} />
+          <TrackerAccountsDetailSkeletonCardView />
+        </>
+      ),
+      error: <TrackerAccountsDetailErrorStateView />,
+    };
+
+    return (
+      <View style={styles.screen}>
+        <View style={styles.statusBar} />
+        <View style={styles.appBar}>
+          <Pressable onPress={onBack} style={styles.backButton}>
+            <Text style={styles.backArrow}>←</Text>
+          </Pressable>
+          <Text style={styles.appBarTitle}>SA 상세</Text>
+        </View>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          {content[screenState]}
+        </ScrollView>
+      </View>
+    );
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "700",
-    color: "#1C1C1E",
-  },
-  subtitle: {
-    fontSize: 14,
-    color: "#8E8E93",
-    marginTop: 4,
-  },
-});
+);
 
 TrackerAccountsDetailViews.displayName = "TrackerAccountsDetailViews";
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+  },
+  statusBar: {
+    height: 54,
+  },
+  appBar: {
+    height: 56,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  backButton: {
+    marginRight: 8,
+  },
+  backArrow: {
+    fontSize: 20,
+    color: "#1A1A1A",
+  },
+  appBarTitle: {
+    fontFamily: "Inter",
+    fontWeight: "700",
+    fontSize: 20,
+    color: "#1A1A1A",
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingHorizontal: 20,
+    paddingBottom: 80,
+  },
+  sectionLabel: {
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: 14,
+    color: "#888",
+    alignSelf: "flex-start",
+  },
+  spacer12: {
+    height: 12,
+  },
+  spacer16: {
+    height: 16,
+  },
+  spacer20: {
+    height: 20,
+  },
+});

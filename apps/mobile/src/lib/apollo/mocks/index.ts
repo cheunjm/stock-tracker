@@ -1,4 +1,4 @@
-import type { MockedResponse } from "@apollo/client/testing";
+import type { MockedResponse } from "@apollo/client/testing/react";
 import {
   DASHBOARD_QUERY,
   ACCOUNTS_QUERY,

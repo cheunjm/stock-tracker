@@ -1,6 +1,6 @@
 import { memo, type ReactNode } from "react";
 import { ApolloProvider } from "@apollo/client/react";
-import { MockedProvider } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing/react";
 import { createApolloClient } from "./client";
 import { trackerMocks } from "./mocks";
 

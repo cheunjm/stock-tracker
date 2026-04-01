@@ -40,4 +40,5 @@ jobs:
       - name: Push schema to test DB
         run: npx prisma db push --schema packages/prisma/prisma/schema --skip-generate
       - name: Run E2E tests
-        run: npm run test:e2e --workspace=@stock-tracker/api
+        working-directory: apps/api
+        run: npx tsx src/__tests__/api.e2e.test.ts

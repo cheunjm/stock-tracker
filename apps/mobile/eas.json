@@ -5,10 +5,7 @@
   },
   "build": {
     "base": {
-      "node": "20.18.0",
-      "env": {
-        "NPM_CONFIG_OMIT": "dev"
-      }
+      "node": "20.19.4"
     },
     "development": {
       "extends": "base",

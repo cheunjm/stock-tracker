@@ -35,19 +35,19 @@ RUN turbo run build --filter=${PACKAGE_NAME}
 
 # --- Stage 4: Production runner ---
 FROM node:${NODE_VERSION}-alpine AS runner
-WORKDIR /app
 ENV NODE_ENV=production
 
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 appuser
 
 ARG APP_DIR
-COPY --from=builder /app/${APP_DIR}/dist ./dist
-COPY --from=builder /app/${APP_DIR}/package.json ./package.json
-COPY --from=builder /app/node_modules ./node_modules
+
+# Copy the full pruned monorepo (preserves workspace package symlinks)
+COPY --from=builder /app /app
+WORKDIR /app/${APP_DIR}
 
 USER appuser
 
 EXPOSE 4000
 
-CMD ["npm", "run", "start"]
+CMD ["node", "dist/server.js"]

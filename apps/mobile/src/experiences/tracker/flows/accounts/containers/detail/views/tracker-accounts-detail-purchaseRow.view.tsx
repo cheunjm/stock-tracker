@@ -2,6 +2,7 @@ import { memo } from "react";
 import { TrackerPurchaseRowView } from "@/experiences/tracker/views";
 
 type TrackerAccountsDetailPurchaseRowViewProps = {
+  id?: string;
   type?: "regular" | "tank";
   productName?: string;
   date?: string;
@@ -9,8 +10,8 @@ type TrackerAccountsDetailPurchaseRowViewProps = {
 };
 
 export const TrackerAccountsDetailPurchaseRowView = memo(
-  (props: TrackerAccountsDetailPurchaseRowViewProps) => {
-    return <TrackerPurchaseRowView {...props} />;
+  ({ id, ...props }: TrackerAccountsDetailPurchaseRowViewProps) => {
+    return <TrackerPurchaseRowView {...props} testID={id ? `purchase-row-${id}` : undefined} />;
   },
 );
 

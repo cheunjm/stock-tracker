@@ -8,6 +8,7 @@ type TrackerErrorStateViewProps = {
   onRetry?: () => void;
   width?: number;
   height?: number;
+  testID?: string;
 };
 
 export const TrackerErrorStateView = memo(
@@ -18,9 +19,10 @@ export const TrackerErrorStateView = memo(
     onRetry,
     width = 340,
     height = 240,
+    testID,
   }: TrackerErrorStateViewProps) => {
     return (
-      <View style={[styles.container, { width, height }]}>
+      <View style={[styles.container, { width, height }]} testID={testID}>
         <View style={styles.errorIcon}>
           <Text style={styles.errorIconText}>!</Text>
         </View>

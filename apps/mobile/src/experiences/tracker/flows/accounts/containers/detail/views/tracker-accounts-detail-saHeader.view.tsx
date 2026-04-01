@@ -6,6 +6,7 @@ type TrackerAccountsDetailSaHeaderViewProps = {
   initial?: string;
   boutique?: string;
   totalSpend?: number;
+  testID?: string;
 };
 
 export const TrackerAccountsDetailSaHeaderView = memo(
@@ -14,9 +15,10 @@ export const TrackerAccountsDetailSaHeaderView = memo(
     initial = "김",
     boutique = "청담 부티크",
     totalSpend = 8200000,
+    testID,
   }: TrackerAccountsDetailSaHeaderViewProps) => {
     return (
-      <View style={styles.card}>
+      <View style={styles.card} testID={testID}>
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>{initial}</Text>
         </View>

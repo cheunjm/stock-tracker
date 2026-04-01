@@ -86,13 +86,15 @@ export const TrackerHistoryBrowseViews = memo(
     };
 
     return (
-      <View style={styles.screen}>
+      <View style={styles.screen} testID="history-browse-screen">
         <View style={styles.statusBar} />
         <View style={styles.appBar}>
-          <Text style={styles.appBarTitle}>구매 히스토리</Text>
+          <Text style={styles.appBarTitle} testID="history-browse-title">
+            구매 히스토리
+          </Text>
         </View>
         {screenState !== "error" && (
-          <View style={styles.filterBar}>
+          <View style={styles.filterBar} testID="date-filter-bar">
             <TrackerHistoryBrowseDateFilterChipsView
               onSelect={onFilterSelect}
             />

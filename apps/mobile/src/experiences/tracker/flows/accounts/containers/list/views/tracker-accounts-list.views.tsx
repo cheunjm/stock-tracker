@@ -72,6 +72,7 @@ export const TrackerAccountsListViews = memo(
             <View key={sa.id}>
               {i > 0 && <View style={styles.spacer12} />}
               <TrackerAccountsListSaListItemView
+                id={sa.id}
                 state={sa.state}
                 name={sa.name}
                 initial={sa.initial}
@@ -97,10 +98,10 @@ export const TrackerAccountsListViews = memo(
     };
 
     return (
-      <View style={styles.screen}>
+      <View style={styles.screen} testID="accounts-list-screen">
         <View style={styles.statusBar} />
         <View style={styles.appBar}>
-          <Text style={styles.appBarTitle}>SA 계좌</Text>
+          <Text style={styles.appBarTitle} testID="accounts-list-title">SA 계좌</Text>
         </View>
         <ScrollView
           style={styles.scrollView}

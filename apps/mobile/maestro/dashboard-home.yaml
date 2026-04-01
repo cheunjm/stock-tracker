@@ -1,0 +1,26 @@
+appId: so.arami.stocktracker.app.develop
+name: Dashboard Home
+---
+- launchApp
+
+- assertVisible:
+    id: "dashboard-home-screen"
+
+- assertVisible:
+    id: "dashboard-home-title"
+- assertVisible: "대시보드"
+
+- assertVisible:
+    id: "eligibility-badge"
+
+- assertVisible:
+    id: "spend-summary-card"
+
+- tapOn:
+    id: "refresh-fab"
+
+- scrollUntilVisible:
+    element:
+      id: "sa-card-.*"
+    direction: DOWN
+    timeout: 3000

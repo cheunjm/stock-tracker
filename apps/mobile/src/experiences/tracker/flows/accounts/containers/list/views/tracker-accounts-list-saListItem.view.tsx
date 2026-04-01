@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 type SaListItemState = "eligible" | "notEligible" | "noPurchases";
 
 type TrackerAccountsListSaListItemViewProps = {
+  id?: string;
   state?: SaListItemState;
   name?: string;
   initial?: string;
@@ -14,6 +15,7 @@ type TrackerAccountsListSaListItemViewProps = {
 
 export const TrackerAccountsListSaListItemView = memo(
   ({
+    id,
     state = "eligible",
     name = "김서연 SA",
     initial = "김",
@@ -36,7 +38,7 @@ export const TrackerAccountsListSaListItemView = memo(
           : "#999";
 
     return (
-      <Pressable style={styles.card} onPress={onPress}>
+      <Pressable style={styles.card} onPress={onPress} testID={id ? `sa-list-item-${id}` : undefined}>
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>{initial}</Text>
         </View>

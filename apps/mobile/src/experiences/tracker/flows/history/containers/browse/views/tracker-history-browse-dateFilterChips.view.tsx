@@ -27,6 +27,7 @@ export const TrackerHistoryBrowseDateFilterChipsView = memo(
           return (
             <Pressable
               key={filter.key}
+              testID={`date-filter-${filter.key}`}
               style={[styles.chip, isSelected && styles.chipSelected]}
               onPress={() => onSelect?.(filter.key)}
             >

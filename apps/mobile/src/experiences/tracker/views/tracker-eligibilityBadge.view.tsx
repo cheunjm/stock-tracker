@@ -5,10 +5,11 @@ type EligibilityBadgeStatus = "eligible" | "notEligible";
 
 type TrackerEligibilityBadgeViewProps = {
   status?: EligibilityBadgeStatus;
+  testID?: string;
 };
 
 export const TrackerEligibilityBadgeView = memo(
-  ({ status = "eligible" }: TrackerEligibilityBadgeViewProps) => {
+  ({ status = "eligible", testID = "eligibility-badge" }: TrackerEligibilityBadgeViewProps) => {
     const isEligible = status === "eligible";
 
     return (
@@ -17,6 +18,7 @@ export const TrackerEligibilityBadgeView = memo(
           styles.badge,
           { backgroundColor: isEligible ? "#E8F7ED" : "#FFE8ED" },
         ]}
+        testID={testID}
       >
         <Text
           style={[styles.text, { color: isEligible ? "#219654" : "#FF2D55" }]}

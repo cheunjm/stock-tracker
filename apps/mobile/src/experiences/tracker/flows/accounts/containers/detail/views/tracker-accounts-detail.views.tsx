@@ -65,10 +65,12 @@ export const TrackerAccountsDetailViews = memo(
             initial={initial}
             boutique={boutique}
             totalSpend={totalSpend}
+            testID="accounts-detail-sa-header"
           />
           <View style={styles.spacer12} />
           <TrackerAccountsDetailTankStatusView
             state={tankState === "noPurchases" ? "notEligible" : tankState}
+            testID="accounts-detail-tank-status"
           />
           <View style={styles.spacer20} />
           <Text style={styles.sectionLabel}>최근 구매 내역</Text>
@@ -77,6 +79,7 @@ export const TrackerAccountsDetailViews = memo(
             <View key={p.id}>
               {i > 0 && <View style={styles.spacer16} />}
               <TrackerAccountsDetailPurchaseRowView
+                id={p.id}
                 type={p.type}
                 productName={p.productName}
                 date={p.date}
@@ -99,10 +102,10 @@ export const TrackerAccountsDetailViews = memo(
     };
 
     return (
-      <View style={styles.screen}>
+      <View style={styles.screen} testID="accounts-detail-screen">
         <View style={styles.statusBar} />
         <View style={styles.appBar}>
-          <Pressable onPress={onBack} style={styles.backButton}>
+          <Pressable onPress={onBack} style={styles.backButton} testID="accounts-detail-back">
             <Text style={styles.backArrow}>←</Text>
           </Pressable>
           <Text style={styles.appBarTitle}>SA 상세</Text>

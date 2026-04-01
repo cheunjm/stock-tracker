@@ -3,11 +3,12 @@ import { TrackerEligibilityBadgeView } from "@/experiences/tracker/views";
 
 type TrackerAccountsDetailTankStatusViewProps = {
   state?: "eligible" | "notEligible";
+  testID?: string;
 };
 
 export const TrackerAccountsDetailTankStatusView = memo(
-  ({ state = "eligible" }: TrackerAccountsDetailTankStatusViewProps) => {
-    return <TrackerEligibilityBadgeView status={state} />;
+  ({ state = "eligible", testID }: TrackerAccountsDetailTankStatusViewProps) => {
+    return <TrackerEligibilityBadgeView status={state} testID={testID} />;
   },
 );
 

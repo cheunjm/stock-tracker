@@ -40,7 +40,7 @@ export const TrackerDashboardHomeSpendSummaryCardView = memo(
     const formattedPercent = `${percentage}%`;
 
     return (
-      <View style={styles.card}>
+      <View style={styles.card} testID="spend-summary-card">
         <Text style={styles.label}>총 구매 금액</Text>
         <Text style={styles.amount}>{formattedSpend}</Text>
         <Text style={styles.goal}>{formattedGoal}</Text>

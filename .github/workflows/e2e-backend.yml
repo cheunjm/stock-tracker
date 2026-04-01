@@ -40,4 +40,4 @@ jobs:
       - name: Push schema to test DB
         run: npx prisma db push --schema packages/prisma/prisma/schema --skip-generate
       - name: Run E2E tests
-        run: npx turbo run test --filter=@stock-tracker/api
+        run: npm run test:e2e --workspace=@stock-tracker/api

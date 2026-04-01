@@ -1,16 +1,9 @@
 import type { Config } from "jest";
 
 const config: Config = {
+  preset: "ts-jest/presets/default-esm",
   testEnvironment: "node",
-  transform: {
-    "^.+\\.tsx?$": [
-      "ts-jest",
-      {
-        useESM: false,
-        tsconfig: "tsconfig.json",
-      },
-    ],
-  },
+  extensionsToTreatAsEsm: [".ts"],
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",
     "^@stock-tracker/prisma/client$":
@@ -19,6 +12,15 @@ const config: Config = {
     "^@stock-tracker/validation$":
       "<rootDir>/../../packages/validation/src/index.ts",
     "^@stock-tracker/types$": "<rootDir>/../../packages/types/src/index.ts",
+  },
+  transform: {
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        useESM: true,
+        tsconfig: "tsconfig.json",
+      },
+    ],
   },
   transformIgnorePatterns: ["node_modules/(?!(@stock-tracker)/)"],
   testMatch: ["**/__tests__/**/*.test.ts"],

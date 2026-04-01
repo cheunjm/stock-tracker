@@ -15,11 +15,7 @@ type AppApolloProviderProps = {
 export const AppApolloProvider = memo(
   ({ children }: AppApolloProviderProps) => {
     if (USE_MOCKS) {
-      return (
-        <MockedProvider mocks={trackerMocks}>
-          {children}
-        </MockedProvider>
-      );
+      return <MockedProvider mocks={trackerMocks}>{children}</MockedProvider>;
     }
 
     return <ApolloProvider client={realClient}>{children}</ApolloProvider>;

@@ -1,0 +1,13 @@
+appId: so.arami.stocktracker.app.develop
+name: Accounts List
+---
+- launchApp
+- tapOn: "계좌"
+- assertVisible: "SA 계좌"
+- assertVisible:
+    id: "sa-list-item-1"
+- assertVisible:
+    id: "sa-list-item-2"
+- tapOn:
+    id: "sa-list-item-1"
+- assertVisible: "SA 상세"

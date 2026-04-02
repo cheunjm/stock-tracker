@@ -9,6 +9,7 @@ type TrackerEmptyStateViewProps = {
   onCtaPress?: () => void;
   width?: number;
   height?: number;
+  testID?: string;
 };
 
 export const TrackerEmptyStateView = memo(
@@ -20,9 +21,10 @@ export const TrackerEmptyStateView = memo(
     onCtaPress,
     width = 340,
     height = 240,
+    testID,
   }: TrackerEmptyStateViewProps) => {
     return (
-      <View style={[styles.container, { width, height }]}>
+      <View style={[styles.container, { width, height }]} testID={testID}>
         <View style={styles.iconContainer}>{icon ?? <BagIcon />}</View>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>

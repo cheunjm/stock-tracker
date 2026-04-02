@@ -9,6 +9,7 @@ export const TrackerAccountsListErrorStateView = memo(() => {
       retryLabel="다시 시도"
       width={310}
       height={230}
+      testID="accounts-list-error-state"
     />
   );
 });

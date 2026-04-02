@@ -9,6 +9,7 @@ export const TrackerAccountsListEmptyStateView = memo(() => {
       ctaLabel="SA 추가하기"
       width={310}
       height={230}
+      testID="accounts-list-empty-state"
     />
   );
 });

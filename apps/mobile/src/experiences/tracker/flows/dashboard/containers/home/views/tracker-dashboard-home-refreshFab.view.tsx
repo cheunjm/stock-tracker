@@ -21,6 +21,7 @@ export const TrackerDashboardHomeRefreshFabView = memo(
         style={[styles.fab, state === "loading" && styles.fabLoading]}
         onPress={onPress}
         disabled={state === "loading"}
+        testID="refresh-fab"
       >
         {state === "loading" ? (
           <ActivityIndicator size="small" color="#FFFFFF" />

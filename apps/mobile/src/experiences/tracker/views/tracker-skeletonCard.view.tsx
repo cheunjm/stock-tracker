@@ -4,12 +4,13 @@ import { View, StyleSheet } from "react-native";
 type TrackerSkeletonCardViewProps = {
   width?: number;
   height?: number;
+  testID?: string;
 };
 
 export const TrackerSkeletonCardView = memo(
-  ({ width = 310, height = 100 }: TrackerSkeletonCardViewProps) => {
+  ({ width = 310, height = 100, testID }: TrackerSkeletonCardViewProps) => {
     return (
-      <View style={[styles.container, { width, height }]}>
+      <View style={[styles.container, { width, height }]} testID={testID}>
         <View style={styles.avatarPlaceholder} />
         <View style={styles.textGroup}>
           <View style={[styles.skeletonLine, { width: 100, height: 12 }]} />

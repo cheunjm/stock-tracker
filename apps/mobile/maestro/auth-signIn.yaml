@@ -1,0 +1,8 @@
+appId: so.arami.stocktracker.app.develop
+name: Auth Sign In
+---
+- launchApp
+- assertVisible:
+    id: "auth-signIn-gmailOauth-screen"
+- assertVisible: "Stock Tracker"
+- assertVisible: "Sign In"

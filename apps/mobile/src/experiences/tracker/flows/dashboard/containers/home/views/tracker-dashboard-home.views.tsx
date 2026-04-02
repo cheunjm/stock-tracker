@@ -45,6 +45,7 @@ export const TrackerDashboardHomeViews = memo(
             <View key={sa.id}>
               <View style={i === 0 ? styles.spacer16 : styles.spacer12} />
               <TrackerDashboardHomeSaCardView
+                id={sa.id}
                 state={sa.state}
                 name={sa.name}
                 initial={sa.initial}
@@ -78,10 +79,12 @@ export const TrackerDashboardHomeViews = memo(
     };
 
     return (
-      <View style={styles.screen}>
+      <View style={styles.screen} testID="dashboard-home-screen">
         <View style={styles.statusBar} />
         <View style={styles.appBar}>
-          <Text style={styles.appBarTitle}>대시보드</Text>
+          <Text style={styles.appBarTitle} testID="dashboard-home-title">
+            대시보드
+          </Text>
         </View>
         <ScrollView
           style={styles.scrollView}

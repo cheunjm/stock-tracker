@@ -4,6 +4,7 @@ import { TrackerEmptyStateView } from "@/experiences/tracker/views";
 export const TrackerDashboardHomeEmptyStateView = memo(() => {
   return (
     <TrackerEmptyStateView
+      testID="dashboard-empty-state"
       title="아직 구매 내역이 없습니다"
       subtitle="SA를 추가하고 구매를 기록해보세요"
       ctaLabel="SA 추가하기"

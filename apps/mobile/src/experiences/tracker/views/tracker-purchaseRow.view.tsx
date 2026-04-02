@@ -8,6 +8,7 @@ type TrackerPurchaseRowViewProps = {
   productName?: string;
   date?: string;
   amount?: number;
+  testID?: string;
 };
 
 export const TrackerPurchaseRowView = memo(
@@ -16,11 +17,12 @@ export const TrackerPurchaseRowView = memo(
     productName = "트리니티 링",
     date = "2024.03.15",
     amount = 3200000,
+    testID,
   }: TrackerPurchaseRowViewProps) => {
     const formattedAmount = `+₩${amount.toLocaleString()}`;
 
     return (
-      <View style={styles.container}>
+      <View style={styles.container} testID={testID}>
         {type === "tank" && <View style={styles.tankIndicator} />}
         <View style={[styles.textGroup, type === "tank" && { marginLeft: 16 }]}>
           <Text style={styles.productName}>{productName}</Text>

@@ -1,0 +1,15 @@
+appId: so.arami.stocktracker.app.develop
+name: History Browse
+---
+- launchApp
+- tapOn: "히스토리"
+- assertVisible: "구매 히스토리"
+- assertVisible:
+    id: "date-filter-bar"
+- tapOn: "3개월"
+- tapOn: "전체"
+- scrollUntilVisible:
+    element:
+      id: "date-filter-bar"
+    direction: DOWN
+    timeout: 5000

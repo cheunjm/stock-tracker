@@ -26,7 +26,7 @@ describe("authControllers", () => {
       const result = await ctrl.me(mockUser.id);
 
       expect(prisma.auth_users.findUnique).toHaveBeenCalledWith({
-        where: { supabase_id: mockUser.id },
+        where: { id: mockUser.id },
       });
       expect(result).toEqual({
         id: mockUser.id,
@@ -56,7 +56,7 @@ describe("authControllers", () => {
 
       expect(result).toBeNull();
       expect(prisma.auth_users.findUnique).toHaveBeenCalledWith({
-        where: { supabase_id: "nonexistent-id" },
+        where: { id: "nonexistent-id" },
       });
     });
   });

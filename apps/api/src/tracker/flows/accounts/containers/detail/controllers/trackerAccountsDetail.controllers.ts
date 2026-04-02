@@ -26,12 +26,18 @@ export const trackerAccountsDetailControllers = (prisma: PrismaClient) => {
   const models = trackerAccountsDetailModels(prisma);
 
   return {
-    byId: async (input: { id: string }) => {
+    byId: async (input: { id: string }, userId: string) => {
       const account = await models.findById(input.id);
       if (!account) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: `Account ${input.id} not found`,
+        });
+      }
+      if (account.auth_user_id !== userId) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Not authorized to access this account",
         });
       }
       return {
@@ -46,17 +52,26 @@ export const trackerAccountsDetailControllers = (prisma: PrismaClient) => {
       };
     },
 
-    update: async (input: {
-      id: string;
-      storeName?: string;
-      saName?: string | null;
-      notes?: string | null;
-    }) => {
+    update: async (
+      input: {
+        id: string;
+        storeName?: string;
+        saName?: string | null;
+        notes?: string | null;
+      },
+      userId: string,
+    ) => {
       const existing = await models.findById(input.id);
       if (!existing) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: `Account ${input.id} not found`,
+        });
+      }
+      if (existing.auth_user_id !== userId) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Not authorized to modify this account",
         });
       }
       const data: Record<string, unknown> = {};
@@ -76,12 +91,18 @@ export const trackerAccountsDetailControllers = (prisma: PrismaClient) => {
       };
     },
 
-    delete: async (input: { id: string }) => {
+    delete: async (input: { id: string }, userId: string) => {
       const existing = await models.findById(input.id);
       if (!existing) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: `Account ${input.id} not found`,
+        });
+      }
+      if (existing.auth_user_id !== userId) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Not authorized to delete this account",
         });
       }
       await models.delete(input.id);

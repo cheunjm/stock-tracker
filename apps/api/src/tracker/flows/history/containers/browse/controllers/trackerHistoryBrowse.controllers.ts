@@ -27,13 +27,16 @@ export const trackerHistoryBrowseControllers = (prisma: PrismaClient) => {
   const models = trackerHistoryBrowseModels(prisma);
 
   return {
-    list: async (input: {
-      accountId?: string;
-      cursor?: string;
-      limit: number;
-      sortOrder: "asc" | "desc";
-    }) => {
-      const results = await models.list(input);
+    list: async (
+      input: {
+        accountId?: string;
+        cursor?: string;
+        limit: number;
+        sortOrder: "asc" | "desc";
+      },
+      userId: string,
+    ) => {
+      const results = await models.list({ ...input, userId });
 
       let nextCursor: string | null = null;
       if (results.length > input.limit) {

@@ -23,10 +23,10 @@ describe("authControllers", () => {
       const prisma = makePrisma(mockUser);
       const ctrl = authControllers(prisma);
 
-      const result = await ctrl.me(mockUser.id);
+      const result = await ctrl.me(mockUser.supabase_id);
 
       expect(prisma.auth_users.findUnique).toHaveBeenCalledWith({
-        where: { id: mockUser.id },
+        where: { supabase_id: mockUser.supabase_id },
       });
       expect(result).toEqual({
         id: mockUser.id,
@@ -52,11 +52,11 @@ describe("authControllers", () => {
       const prisma = makePrisma(null);
       const ctrl = authControllers(prisma);
 
-      const result = await ctrl.me("nonexistent-id");
+      const result = await ctrl.me("nonexistent-supabase-id");
 
       expect(result).toBeNull();
       expect(prisma.auth_users.findUnique).toHaveBeenCalledWith({
-        where: { id: "nonexistent-id" },
+        where: { supabase_id: "nonexistent-supabase-id" },
       });
     });
   });

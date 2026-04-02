@@ -35,10 +35,17 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
       - run: npm ci
-      - name: Generate Prisma client
-        run: npx turbo run build --filter=@stock-tracker/prisma
+      - name: Build packages
+        run: npx turbo run build --filter='./packages/*'
       - name: Push schema to test DB
         run: npx prisma db push --schema packages/prisma/prisma/schema --skip-generate
       - name: Run E2E tests
         working-directory: apps/api
-        run: npx vitest run --config vitest.e2e.config.ts
+        run: npx vitest run --config vitest.e2e.config.ts --coverage
+      - name: Upload coverage to Codecov
+        if: always()
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: apps/api/coverage/lcov.info
+          fail_ci_if_error: false

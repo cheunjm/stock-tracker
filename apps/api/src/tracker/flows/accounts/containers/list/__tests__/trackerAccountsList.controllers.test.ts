@@ -16,8 +16,8 @@ const mockDbAccount = {
 const makePrisma = () =>
   ({
     tracker_accounts: {
-      findMany: jest.fn().mockResolvedValue([mockDbAccount]),
-      create: jest.fn().mockImplementation(({ data }) => {
+      findMany: jest.fn().mockResolvedValue([mockDbAccount] as any),
+      create: jest.fn().mockImplementation(({ data }: { data: any }) => {
         return Promise.resolve({
           id: "new-acc-id",
           auth_user_id: data.auth_user_id,
@@ -57,7 +57,7 @@ describe("trackerAccountsListControllers", () => {
 
     it("returns empty array when no accounts exist", async () => {
       const prisma = makePrisma();
-      (prisma.tracker_accounts.findMany as jest.Mock).mockResolvedValue([]);
+      (prisma.tracker_accounts.findMany as jest.Mock).mockResolvedValue([] as any);
       const ctrl = trackerAccountsListControllers(prisma);
 
       const result = await ctrl.all();

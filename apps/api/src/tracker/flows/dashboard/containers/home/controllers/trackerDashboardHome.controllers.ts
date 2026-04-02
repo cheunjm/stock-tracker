@@ -5,12 +5,12 @@ export const trackerDashboardHomeControllers = (prisma: PrismaClient) => {
   const models = trackerDashboardHomeModels(prisma);
 
   return {
-    summary: async () => {
+    summary: async (userId: string) => {
       const [totalAccounts, totalPurchases, totalSpentDecimal] =
         await Promise.all([
-          models.getAccountCount(),
-          models.getPurchaseCount(),
-          models.getTotalSpent(),
+          models.getAccountCount(userId),
+          models.getPurchaseCount(userId),
+          models.getTotalSpent(userId),
         ]);
 
       return {

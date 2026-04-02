@@ -23,8 +23,8 @@ export const trackerAccountsListControllers = (prisma: PrismaClient) => {
   const models = trackerAccountsListModels(prisma);
 
   return {
-    all: async () => {
-      const accounts = await models.findAll();
+    all: async (userId: string) => {
+      const accounts = await models.findAll(userId);
       return accounts.map(mapAccount);
     },
 

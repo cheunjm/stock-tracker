@@ -2,14 +2,18 @@ import type { PrismaClient } from "@stock-tracker/prisma";
 
 export const trackerHistoryBrowseModels = (prisma: PrismaClient) => ({
   list: async (params: {
+    userId: string;
     accountId?: string;
     cursor?: string;
     limit: number;
     sortOrder: "asc" | "desc";
   }) => {
-    const where = params.accountId
-      ? { tracker_account_id: params.accountId }
-      : undefined;
+    const where: Record<string, unknown> = {
+      tracker_account: { auth_user_id: params.userId },
+    };
+    if (params.accountId) {
+      where.tracker_account_id = params.accountId;
+    }
 
     return prisma.tracker_purchases.findMany({
       where,

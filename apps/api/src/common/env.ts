@@ -4,7 +4,7 @@ const envSchema = z.object({
   PORT: z.string().default("4000"),
   DATABASE_URL: z.string(),
   NODE_ENV: z
-    .enum(["development", "production", "test"])
+    .enum(["development", "staging", "production", "test"])
     .default("development"),
 });
 

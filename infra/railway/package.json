@@ -10,6 +10,7 @@
     "setup:production": "tsx src/setup.ts production"
   },
   "dependencies": {
+    "graphql": "^16.13.2",
     "graphql-request": "^7.1.2"
   },
   "devDependencies": {

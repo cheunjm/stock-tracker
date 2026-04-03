@@ -56,7 +56,20 @@ jobs:
           echo "url=$DEPLOY_URL" >> "$GITHUB_OUTPUT"
         working-directory: apps/mobile/dist
 
+      - name: Set branch alias
+        if: github.ref != 'refs/heads/main'
+        run: |
+          BRANCH="${{ github.ref_name }}"
+          npx vercel alias set "${{ steps.deploy.outputs.url }}" \
+            "${BRANCH}.app.stocktracker.arami.so" \
+            --token="${{ secrets.VERCEL_TOKEN }}" \
+            --scope "${{ secrets.VERCEL_ORG_ID }}"
+        working-directory: apps/mobile/dist
+
       - name: Deployment summary
         run: |
           echo "### Web deployed" >> "$GITHUB_STEP_SUMMARY"
           echo "URL: ${{ steps.deploy.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
+          if [[ "${{ github.ref }}" != "refs/heads/main" ]]; then
+            echo "Alias: https://${{ github.ref_name }}.app.stocktracker.arami.so" >> "$GITHUB_STEP_SUMMARY"
+          fi

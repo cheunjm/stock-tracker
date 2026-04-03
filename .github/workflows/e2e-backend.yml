@@ -14,7 +14,7 @@ env:
 
 jobs:
   e2e:
-    if: github.event.pull_request.base.ref == 'stage'
+    if: contains(fromJSON('["develop", "stage"]'), github.event.pull_request.base.ref)
     runs-on: ubuntu-latest
     services:
       postgres:

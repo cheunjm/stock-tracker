@@ -92,6 +92,12 @@ jobs:
           path: "**/test-results/*.xml"
           reporter: jest-junit
           fail-on-empty: false
+      - name: Upload coverage to Codecov
+        if: always()
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
 
   format:
     runs-on: ubuntu-latest

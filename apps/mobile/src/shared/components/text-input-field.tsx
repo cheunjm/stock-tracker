@@ -1,17 +1,7 @@
 import { memo } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  type TextInputProps,
-} from "react-native";
-import {
-  Controller,
-  type Control,
-  type FieldValues,
-  type Path,
-} from "react-hook-form";
+import { View, TextInput, StyleSheet, type TextInputProps } from "react-native";
+import { Text } from "@arami-works/ui";
+import { Controller, type Control, type FieldValues, type Path } from "react-hook-form";
 
 type TextInputFieldProps<T extends FieldValues> = {
   control: Control<T>;
@@ -34,7 +24,9 @@ function TextInputFieldInner<T extends FieldValues>({
 }: TextInputFieldProps<T>) {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
+      <Text role="body" size="small" fontWeight="600" marginBottom={6}>
+        {label}
+      </Text>
       <Controller
         control={control}
         name={name}
@@ -55,7 +47,11 @@ function TextInputFieldInner<T extends FieldValues>({
           />
         )}
       />
-      {error && <Text style={styles.error}>{error}</Text>}
+      {error && (
+        <Text role="body" size="small" color="$error" marginTop={4}>
+          {error}
+        </Text>
+      )}
     </View>
   );
 }
@@ -68,13 +64,7 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 16,
   },
-  label: {
-    fontFamily: "Inter",
-    fontWeight: "600",
-    fontSize: 13,
-    color: "#1A1A1A",
-    marginBottom: 6,
-  },
+
   input: {
     height: 44,
     borderWidth: 1,
@@ -92,11 +82,5 @@ const styles = StyleSheet.create({
   },
   inputError: {
     borderColor: "#FF2D55",
-  },
-  error: {
-    fontFamily: "Inter",
-    fontSize: 12,
-    color: "#FF2D55",
-    marginTop: 4,
   },
 });

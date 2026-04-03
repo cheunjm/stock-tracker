@@ -1,11 +1,6 @@
 import { memo } from "react";
-import {
-  View,
-  Text,
-  Pressable,
-  ActivityIndicator,
-  StyleSheet,
-} from "react-native";
+import { View, StyleSheet } from "react-native";
+import { Button, Text, ProgressIndicator } from "@arami-works/ui";
 import { useAuthSignInGmailOauthControllers } from "../controllers/auth-signIn-gmailOauth.controllers";
 
 export const AuthSignInGmailOauthViews = memo(() => {
@@ -14,23 +9,27 @@ export const AuthSignInGmailOauthViews = memo(() => {
 
   return (
     <View style={styles.container} testID="auth-signIn-gmailOauth-screen">
-      <Text style={styles.title} testID="auth-signIn-title">
+      <Text role="display" size="small" color="white" testID="auth-signIn-title">
         Stock Tracker
       </Text>
-      <Text style={styles.subtitle} testID="auth-signIn-subtitle">
+      <Text role="body" size="large" color="white" opacity={0.8} marginTop={8} testID="auth-signIn-subtitle">
         Sign In
       </Text>
-      <Pressable
-        style={styles.button}
-        onPress={signInWithGoogle}
-        disabled={isSigningIn}
-      >
+      <View style={styles.buttonWrapper}>
         {isSigningIn ? (
-          <ActivityIndicator color="#FF2D55" />
+          <ProgressIndicator type="circular" size={32} />
         ) : (
-          <Text style={styles.buttonText}>Sign in with Google</Text>
+          <Button
+            variant="elevated"
+            onPress={signInWithGoogle}
+            disabled={isSigningIn}
+            minWidth={200}
+            color="$primary"
+          >
+            Sign in with Google
+          </Button>
         )}
-      </Pressable>
+      </View>
     </View>
   );
 });
@@ -42,30 +41,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#FF2D55",
   },
-  title: {
-    fontSize: 32,
-    fontWeight: "700",
-    color: "#FFFFFF",
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "#FFFFFF",
-    opacity: 0.8,
-    marginTop: 8,
-  },
-  button: {
+  buttonWrapper: {
     marginTop: 32,
-    backgroundColor: "#FFFFFF",
-    paddingHorizontal: 24,
-    paddingVertical: 14,
-    borderRadius: 8,
-    minWidth: 200,
     alignItems: "center",
-  },
-  buttonText: {
-    color: "#FF2D55",
-    fontSize: 16,
-    fontWeight: "600",
   },
 });
 

@@ -38,11 +38,16 @@ export const SERVICES: ServiceDef[] = [
     port: 4000,
     healthcheckPath: "/health",
   },
-  // Future: uncomment when Dockerized
-  // {
-  //   name: "subgraph-tracker",
-  //   image: "ghcr.io/arami-works/stock-tracker-subgraph-tracker",
-  //   port: 4001,
-  //   healthcheckPath: "/health",
-  // },
+  {
+    name: "subgraph-tracker",
+    image: "ghcr.io/arami-works/stock-tracker-subgraph-tracker",
+    port: 4001,
+    healthcheckPath: "/health",
+  },
+  {
+    name: "router",
+    image: "ghcr.io/arami-works/stock-tracker-router",
+    port: 4002,
+    healthcheckPath: "/health",
+  },
 ];

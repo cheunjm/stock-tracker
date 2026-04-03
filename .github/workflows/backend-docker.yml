@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "apps/api/**"
+      - "apps/subgraphs/**"
+      - "apps/router/**"
       - "packages/**"
       - "infra/docker/**"
       - "package-lock.json"
@@ -24,10 +26,18 @@ jobs:
     strategy:
       matrix:
         include:
-          # TODO: Add router and subgraph services when Dockerfiles exist
           - service: api
             package: "@stock-tracker/api"
             dir: apps/api
+            dockerfile: infra/docker/node-service.Dockerfile
+          - service: subgraph-tracker
+            package: "@stock-tracker/subgraph-tracker"
+            dir: apps/subgraphs/tracker
+            dockerfile: infra/docker/node-service.Dockerfile
+          - service: router
+            package: ""
+            dir: ""
+            dockerfile: apps/router/Dockerfile
     steps:
       - uses: actions/checkout@v4
 
@@ -49,12 +59,10 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: .
-          file: infra/docker/node-service.Dockerfile
+          file: ${{ matrix.dockerfile }}
           push: true
           tags: ${{ steps.tags.outputs.tags }}
-          build-args: |
-            PACKAGE_NAME=${{ matrix.package }}
-            APP_DIR=${{ matrix.dir }}
+          build-args: ${{ matrix.package != '' && format('PACKAGE_NAME={0}\nAPP_DIR={1}', matrix.package, matrix.dir) || '' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

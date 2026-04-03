@@ -123,6 +123,25 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - run: npm audit --audit-level=critical --omit=dev
 
+  visual:
+    needs: [changes]
+    if: needs.changes.outputs.stories == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node-deps
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Build Storybook
+        run: npx turbo run build --filter=@stock-tracker/storybook
+      - name: Publish to Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          storybookBuildDir: apps/storybook/storybook-static
+          exitOnceUploaded: true
+
   prisma:
     needs: [changes]
     if: needs.changes.outputs.prisma == 'true'

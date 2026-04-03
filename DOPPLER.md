@@ -4,12 +4,12 @@ Environment variables are managed via [Doppler](https://doppler.com). Project: `
 
 ## Configs
 
-| Config | Purpose |
-|--------|---------|
-| `master` | Production (Master Supabase project, Railway prod) |
-| `stage` | Staging (Railway stage, Apollo `stock-tracker@stage`) |
+| Config    | Purpose                                                      |
+| --------- | ------------------------------------------------------------ |
+| `master`  | Production (Master Supabase project, Railway prod)           |
+| `stage`   | Staging (Railway stage, Apollo `stock-tracker@stage`)        |
 | `develop` | Dev deployment (Railway dev, Apollo `stock-tracker@develop`) |
-| `local` | Local development — services on localhost |
+| `local`   | Local development — services on localhost                    |
 
 ## First-time setup
 
@@ -38,10 +38,10 @@ doppler run -- docker compose up
 
 ## Required vars (local config)
 
-| Var | Description |
-|-----|-------------|
-| `DATABASE_URL` | Supabase connection string |
+| Var                 | Description                                               |
+| ------------------- | --------------------------------------------------------- |
+| `DATABASE_URL`      | Supabase connection string                                |
 | `SUPABASE_JWKS_URL` | `https://<ref>.supabase.co/auth/v1/.well-known/jwks.json` |
-| `ALLOWED_ORIGINS` | Comma-separated allowed CORS origins |
-| `TRPC_SERVICE_URL` | `http://localhost:4000` (local) |
-| `NODE_ENV` | `development` |
+| `ALLOWED_ORIGINS`   | Comma-separated allowed CORS origins                      |
+| `TRPC_SERVICE_URL`  | `http://localhost:4000` (local)                           |
+| `NODE_ENV`          | `development`                                             |

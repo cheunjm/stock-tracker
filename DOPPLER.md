@@ -38,10 +38,14 @@ doppler run -- docker compose up
 
 ## Required vars (local config)
 
-| Var                 | Description                                               |
+`local` uses a local Supabase instance (`supabase start`). All vars are pre-populated in Doppler.
+
+| Var                 | Local value                                               |
 | ------------------- | --------------------------------------------------------- |
-| `DATABASE_URL`      | Supabase connection string                                |
-| `SUPABASE_JWKS_URL` | `https://<ref>.supabase.co/auth/v1/.well-known/jwks.json` |
-| `ALLOWED_ORIGINS`   | Comma-separated allowed CORS origins                      |
-| `TRPC_SERVICE_URL`  | `http://localhost:4000` (local)                           |
+| `DATABASE_URL`      | `postgresql://postgres:postgres@localhost:54322/postgres` |
+| `SUPABASE_JWKS_URL` | `http://localhost:54321/auth/v1/.well-known/jwks.json`    |
+| `TRPC_SERVICE_URL`  | `http://localhost:4000`                                   |
+| `ALLOWED_ORIGINS`   | `http://localhost:19006,...`                              |
 | `NODE_ENV`          | `development`                                             |
+
+For `dev`/`stg`/`prd` configs, populate via the Doppler dashboard with the respective Railway + Supabase cloud credentials.

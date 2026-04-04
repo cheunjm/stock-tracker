@@ -4,7 +4,7 @@
     "strict": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@arami-works/ui": ["../../node_modules/@arami-works/ui"]
+      "@aramiworks/ui": ["../../node_modules/@aramiworks/ui"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]

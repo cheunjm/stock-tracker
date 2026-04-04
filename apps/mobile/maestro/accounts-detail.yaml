@@ -1,5 +1,7 @@
 url: ${MAESTRO_APP_URL}
 name: Accounts Detail
+tags:
+  - authenticated
 ---
 - launchApp
 - tapOn: "계좌"

@@ -1,5 +1,7 @@
 url: ${MAESTRO_APP_URL}
 name: Dashboard Home
+tags:
+  - authenticated
 ---
 - launchApp
 

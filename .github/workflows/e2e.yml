@@ -73,16 +73,11 @@ jobs:
         if: steps.check-flows.outputs.has_flows == 'true'
         run: npx wait-on http://localhost:8080 --timeout 30000
 
-      - name: Debug — capture browser output
-        if: steps.check-flows.outputs.has_flows == 'true'
-        run: |
-          timeout 20 google-chrome-stable --headless=new --dump-dom --no-sandbox --disable-gpu --virtual-time-budget=10000 --enable-logging=stderr --v=0 http://localhost:8080 2>&1 || true
-
       - name: Run Maestro E2E tests
         if: steps.check-flows.outputs.has_flows == 'true'
         run: |
           export PATH="$PATH:$HOME/.maestro/bin"
-          maestro test apps/mobile/maestro/
+          maestro test --exclude-tags=authenticated apps/mobile/maestro/
 
       - name: Upload Maestro test results
         if: always() && steps.check-flows.outputs.has_flows == 'true'

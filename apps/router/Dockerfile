@@ -1,6 +1,6 @@
 FROM ghcr.io/apollographql/router:v2.10.0
 
-COPY router.yaml /dist/config/router.yaml
+COPY apps/router/router.yaml /dist/config/router.yaml
 
 EXPOSE 4002
 

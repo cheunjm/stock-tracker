@@ -23,6 +23,13 @@ const config: StorybookConfig = {
         "./mocks/expo-vector-icons.js",
       ),
     };
+    // @aramiworks/ui ships TypeScript source (.tsx files). Exclude from
+    // pre-bundling so Vite processes it through the regular TSX transform.
+    config.optimizeDeps = config.optimizeDeps || {};
+    config.optimizeDeps.exclude = [
+      ...(config.optimizeDeps.exclude || []),
+      "@aramiworks/ui",
+    ];
     return config;
   },
 };

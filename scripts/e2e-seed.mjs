@@ -53,7 +53,7 @@ console.log(`Found auth user: ${authUser.id}`);
 
 // 2. Upsert the auth_users row in the public schema
 const now = new Date().toISOString();
-const [user] = await restFetch("/auth_users", {
+const [user] = await restFetch("/auth_users?on_conflict=supabase_id", {
   method: "POST",
   body: JSON.stringify({
     supabase_id: authUser.id,

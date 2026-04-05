@@ -5,6 +5,9 @@ inputs:
   node-version:
     description: Node.js version
     default: "20"
+  github-token:
+    description: GitHub token for GitHub Packages authentication
+    required: true
 
 runs:
   using: composite
@@ -13,5 +16,9 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
         cache: npm
+        registry-url: https://npm.pkg.github.com
+        scope: "@aramiworks"
     - run: npm ci
       shell: bash
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.github-token }}

@@ -1,5 +1,6 @@
 import { memo, useState, type ReactNode } from "react";
-import { View, Text, ScrollView, StyleSheet, Pressable } from "react-native";
+import { View, ScrollView, StyleSheet } from "react-native";
+import { Text, FAB } from "@aramiworks/ui";
 import type {
   TrackerDashboardHomeScreenState,
   TrackerDashboardHomeControllersOutput,
@@ -85,7 +86,7 @@ export const TrackerDashboardHomeViews = memo(
       <View style={styles.screen} testID="dashboard-home-screen">
         <View style={styles.statusBar} />
         <View style={styles.appBar}>
-          <Text style={styles.appBarTitle} testID="dashboard-home-title">
+          <Text role="title" size="large" testID="dashboard-home-title">
             대시보드
           </Text>
         </View>
@@ -104,13 +105,13 @@ export const TrackerDashboardHomeViews = memo(
                 <View style={styles.fabSpacer} />
               </>
             )}
-            <Pressable
-              style={styles.addFab}
+            <FAB
+              icon="add"
+              color="primary"
               onPress={() => setShowAccountModal(true)}
+              accessibilityLabel="계좌 추가"
               testID="add-account-fab"
-            >
-              <Text style={styles.addFabIcon}>+</Text>
-            </Pressable>
+            />
           </View>
         )}
         {onCreateAccount && (
@@ -140,12 +141,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 20,
   },
-  appBarTitle: {
-    fontFamily: "Inter",
-    fontWeight: "700",
-    fontSize: 20,
-    color: "#1A1A1A",
-  },
   scrollView: {
     flex: 1,
   },
@@ -162,24 +157,6 @@ const styles = StyleSheet.create({
   },
   fabSpacer: {
     height: 12,
-  },
-  addFab: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: "#FF2D55",
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
-  },
-  addFabIcon: {
-    fontSize: 24,
-    color: "#FFFFFF",
-    fontFamily: "Inter",
-    fontWeight: "700",
   },
   spacer16: {
     height: 16,

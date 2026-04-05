@@ -1,7 +1,12 @@
 import { memo } from "react";
 import { View, TextInput, StyleSheet, type TextInputProps } from "react-native";
 import { Text } from "@aramiworks/ui";
-import { Controller, type Control, type FieldValues, type Path } from "react-hook-form";
+import {
+  Controller,
+  type Control,
+  type FieldValues,
+  type Path,
+} from "react-hook-form";
 
 type TextInputFieldProps<T extends FieldValues> = {
   control: Control<T>;

@@ -15,6 +15,13 @@ const config: StorybookConfig = {
       "react-native": "react-native-web",
       "@": path.resolve(__dirname, "../../mobile/src"),
     };
+    config.optimizeDeps = {
+      ...config.optimizeDeps,
+      esbuildOptions: {
+        ...(config.optimizeDeps?.esbuildOptions as object),
+        loader: { ".js": "jsx" },
+      },
+    };
     return config;
   },
 };

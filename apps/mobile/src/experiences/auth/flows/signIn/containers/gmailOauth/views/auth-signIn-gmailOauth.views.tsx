@@ -9,10 +9,22 @@ export const AuthSignInGmailOauthViews = memo(() => {
 
   return (
     <View style={styles.container} testID="auth-signIn-gmailOauth-screen">
-      <Text role="display" size="small" color="white" testID="auth-signIn-title">
+      <Text
+        role="display"
+        size="small"
+        color="white"
+        testID="auth-signIn-title"
+      >
         Stock Tracker
       </Text>
-      <Text role="body" size="large" color="white" opacity={0.8} marginTop={8} testID="auth-signIn-subtitle">
+      <Text
+        role="body"
+        size="large"
+        color="white"
+        opacity={0.8}
+        marginTop={8}
+        testID="auth-signIn-subtitle"
+      >
         Sign In
       </Text>
       <View style={styles.buttonWrapper}>

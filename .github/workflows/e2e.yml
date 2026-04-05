@@ -104,8 +104,21 @@ jobs:
           E2E_USER_EMAIL: ${{ secrets.E2E_USER_EMAIL }}
         run: node scripts/e2e-seed.mjs
 
-      - name: Run authenticated flows
+      - name: Check GraphQL backend reachability
         if: steps.check-flows.outputs.has_flows == 'true'
+        id: check-backend
+        env:
+          E2E_GRAPHQL_URL: ${{ secrets.E2E_GRAPHQL_URL }}
+        run: |
+          if curl -sf --connect-timeout 5 "$E2E_GRAPHQL_URL" > /dev/null 2>&1; then
+            echo "reachable=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "reachable=false" >> "$GITHUB_OUTPUT"
+            echo "GraphQL backend unreachable — skipping authenticated flows (will run after INF-551 deploys backend)"
+          fi
+
+      - name: Run authenticated flows
+        if: steps.check-flows.outputs.has_flows == 'true' && steps.check-backend.outputs.reachable == 'true'
         run: |
           export PATH="$PATH:$HOME/.maestro/bin"
           maestro test --include-tags=authenticated apps/mobile/maestro/

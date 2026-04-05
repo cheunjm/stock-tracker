@@ -53,19 +53,16 @@ console.log(`Found auth user: ${authUser.id}`);
 
 // 2. Upsert the auth_users row in the public schema
 const now = new Date().toISOString();
-const [user] = await restFetch(
-  `/auth_users?supabase_id=eq.${authUser.id}`,
-  {
-    method: "POST",
-    body: JSON.stringify({
-      supabase_id: authUser.id,
-      email: USER_EMAIL,
-      display_name: "E2E Test User",
-      updated_at: now,
-    }),
-    headers: { ...headers, Prefer: "resolution=merge-duplicates,return=representation" },
-  }
-);
+const [user] = await restFetch("/auth_users", {
+  method: "POST",
+  body: JSON.stringify({
+    supabase_id: authUser.id,
+    email: USER_EMAIL,
+    display_name: "E2E Test User",
+    updated_at: now,
+  }),
+  headers: { ...headers, Prefer: "resolution=merge-duplicates,return=representation" },
+});
 console.log(`Upserted auth_users row: ${user.id}`);
 
 // 3. Clean existing accounts (idempotency)

@@ -49,6 +49,7 @@ jobs:
       - uses: ./.github/actions/setup-node-deps
         with:
           node-version: ${{ env.NODE_VERSION }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run lint
 
   check-types:
@@ -59,6 +60,7 @@ jobs:
       - uses: ./.github/actions/setup-node-deps
         with:
           node-version: ${{ env.NODE_VERSION }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run check-types
 
   test:
@@ -72,6 +74,7 @@ jobs:
       - uses: ./.github/actions/setup-node-deps
         with:
           node-version: ${{ env.NODE_VERSION }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run test -- -- --reporters=default --reporters=jest-junit
         env:
           JEST_JUNIT_OUTPUT_DIR: test-results
@@ -107,6 +110,7 @@ jobs:
       - uses: ./.github/actions/setup-node-deps
         with:
           node-version: ${{ env.NODE_VERSION }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run format:check
 
   build:
@@ -117,6 +121,7 @@ jobs:
       - uses: ./.github/actions/setup-node-deps
         with:
           node-version: ${{ env.NODE_VERSION }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run build
 
   audit:
@@ -127,6 +132,7 @@ jobs:
       - uses: ./.github/actions/setup-node-deps
         with:
           node-version: ${{ env.NODE_VERSION }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: npm audit --audit-level=critical --omit=dev --omit=optional
 
   visual:
@@ -139,6 +145,7 @@ jobs:
       - uses: ./.github/actions/setup-node-deps
         with:
           node-version: ${{ env.NODE_VERSION }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Storybook
         run: npx turbo run build --filter=@stock-tracker/storybook
       - name: Publish to Chromatic
@@ -158,6 +165,7 @@ jobs:
       - uses: ./.github/actions/setup-node-deps
         with:
           node-version: ${{ env.NODE_VERSION }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: npx prisma validate --schema packages/prisma/prisma/schema
         env:
           DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
@@ -186,6 +194,7 @@ jobs:
       - uses: ./.github/actions/setup-node-deps
         with:
           node-version: ${{ env.NODE_VERSION }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Apply migrations
         run: npx prisma migrate deploy --schema packages/prisma/prisma/schema
         env:
@@ -205,6 +214,7 @@ jobs:
       - uses: ./.github/actions/setup-node-deps
         with:
           node-version: ${{ env.NODE_VERSION }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build subgraphs
         run: npx turbo run build --filter='./apps/subgraphs/*'
       - name: Cache Rover CLI

@@ -71,7 +71,6 @@ jobs:
       - name: Seed E2E test data
         if: steps.check-flows.outputs.has_flows == 'true'
         env:
-          DATABASE_URL: ${{ secrets.E2E_DATABASE_URL }}
           E2E_SUPABASE_URL: ${{ secrets.E2E_SUPABASE_URL }}
           E2E_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.E2E_SUPABASE_SERVICE_ROLE_KEY }}
           E2E_USER_EMAIL: ${{ secrets.E2E_USER_EMAIL }}
